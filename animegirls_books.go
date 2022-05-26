@@ -13,8 +13,8 @@ import (
 
 // Languages available. List: "Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"
 var Languages = []string{"Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"}
-
-var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master/"
+var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master"
+var folderLink = "https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/tree/master"
 
 // GetRandomImage makes a request to the github repository and returns a random image from the language provided.
 // If the languages not exists, it returns an error.
@@ -88,7 +88,7 @@ func Request(l string) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	link := fmt.Sprintf("https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/tree/master/%s", lang)
+	link := fmt.Sprintf("%s/%s", folderLink, lang)
 
 	res, err := http.Get(link)
 	if err != nil {
@@ -125,7 +125,7 @@ func IsLanguage(str string) (string, error) {
 }
 
 func concatRawLink(lang string, im string) string {
-	return fmt.Sprintf("%s%s/%s", rawLink, lang, im)
+	return fmt.Sprintf("%s/%s/%s", rawLink, lang, im)
 }
 
 func removeDuplicateStr(slice []string) []string {
