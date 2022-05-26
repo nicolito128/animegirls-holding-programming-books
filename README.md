@@ -32,3 +32,50 @@ func main() {
 ```
 
 Accepted languages are only those available in the original `cat-milk` repository. If you want more images then contribute, it's open source.
+
+## All
+* `Using GetImages`:
+```go
+im, err := animegirls_books.GetImages("ocaml")
+if err != nil {
+	panic(err)
+}
+
+// im is a []string
+fmt.Println(im...)
+```
+
+* `Using GetRandomImage`:
+```go
+im, err := animegirls_books.GetRandomImage("go")
+if err != nil {
+	panic(err)
+}
+
+fmt.Println(im)
+```
+
+* `Using IsLanguage`:
+```go
+lang, err := animegirls_books.IsLanguage("ruby")
+if err != nil {
+	fmt.Println("Not language")
+} else {
+	fmt.Println(lang)
+}
+```
+
+* `Using Request`:
+```go
+body, err := animegirls_books.Request("dart")
+if err != nil {
+	panic(err)
+}
+
+// Body of: https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/tree/master/<language>
+fmt.Println(string(body))
+```
+
+## Interest links
+* [Waffer discord bot](https://github.com/nicolito128/waffer)
+* [Anime-Girls-Holding-Programming-Books](https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books)
