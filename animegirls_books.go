@@ -11,10 +11,13 @@ import (
 	"time"
 )
 
+// Languages available. List: "Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"
 var Languages = []string{"Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"}
 
 var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master/"
 
+// GetRandomImage makes a request to the github repository and returns a random image from the language provided.
+// If the languages not exists, it returns an error.
 func GetRandomImage(l string) (string, error) {
 	lang, err := IsLanguage(l)
 	if err != nil {
@@ -34,6 +37,8 @@ func GetRandomImage(l string) (string, error) {
 	return rbImage, nil
 }
 
+// GetImages makes a request to the github repository and returns a list of images from the language provided.
+// If the languages not exists, it returns an error.
 func GetImages(l string) ([]string, error) {
 	lang, err := IsLanguage(l)
 	if err != nil {
@@ -75,6 +80,8 @@ func GetImages(l string) ([]string, error) {
 	return im, nil
 }
 
+// Request makes a request to the github repository and returns the response body.
+// If the languages not exists, it returns an error.
 func Request(l string) ([]byte, error) {
 	lang, err := IsLanguage(l)
 	if err != nil {
@@ -96,6 +103,7 @@ func Request(l string) ([]byte, error) {
 	return body, nil
 }
 
+// IsLanguage checks if the str is an available language.
 func IsLanguage(str string) (string, error) {
 	var ok bool
 	var l string
