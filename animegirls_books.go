@@ -51,13 +51,13 @@ func GetImages(l string) ([]string, error) {
 	}
 
 	// The regular expression to find all <fileName>.jpg images
-	regJpg, err := regexp.Compile(`(?:(-)\w|\w)+?(?:(')\w|\w.)+?(?:(\(\w\))\w|\w.)\.jpg`)
+	regJpg, err := regexp.Compile(`(title=")+[\w.'\-\(\)'&#39;]+\.jpg`)
 	if err != nil {
 		return []string{}, err
 	}
 
 	// The regular expression to find all <fileName>.png images
-	regPng, err := regexp.Compile(`(?:(-)\w|\w)+?(?:(')\w|\w.)+?(?:(\(\w\))\w|\w.)\.png`)
+	regPng, err := regexp.Compile(`(title=")+[\w.'\-\(\)'&#39;]+\.png`)
 	if err != nil {
 		return []string{}, err
 	}
@@ -73,16 +73,20 @@ func GetImages(l string) ([]string, error) {
 	im := append(jpgIm, pngIm...)
 
 	// Making each item a raw link
-	var imLinks []string
-	for _, item := range im {
-		if strings.HasPrefix(item, fmt.Sprintf("master/%s/", lang)) {
-			continue
+	for i, item := range im {
+		if strings.Contains(item, "title=") {
+			item = strings.Replace(item, `title="`, "", 1)
 		}
 
-		imLinks = append(imLinks, concatRawLink(lang, item))
-	}
+		if strings.Contains(item, "&#39;") {
+			item = strings.Replace(item, `&#39;`, "'", 1)
+		}
 
-	return imLinks, nil
+		im[i] = concatRawLink(lang, item)
+	}
+	fmt.Println(im)
+
+	return im, nil
 }
 
 // Request makes a request to the github repository and returns the response body.
@@ -138,7 +142,7 @@ func removeDuplicateStr(slice []string) []string {
 	list := []string{}
 
 	for _, item := range slice {
-		if item == "fluidicon.png" || item == "favicon.png" {
+		if item == "fluidicon.png" || item == "favicon.png" || item == "luidicon.png" {
 			continue
 		}
 
