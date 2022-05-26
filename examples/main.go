@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	im, err := animegirls.GetRandomImage("go")
+	im, err := animegirls.GetRandomImage("css")
 	if err != nil {
 		panic(err)
 	}
