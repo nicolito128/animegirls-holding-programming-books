@@ -46,13 +46,13 @@ func GetImages(l string) ([]string, error) {
 	}
 
 	// The regular expression to find all <fileName>.jpg images
-	regJpg, err := regexp.Compile(`\w+[a-zA-Z]\.jpg`)
+	regJpg, err := regexp.Compile(`\w+?(?:(-)\w|\w)+\w+[a-zA-Z]\.jpg`)
 	if err != nil {
 		return []string{}, err
 	}
 
 	// The regular expression to find all <fileName>.png images
-	regPng, err := regexp.Compile(`\w+[a-zA-Z]\.png`)
+	regPng, err := regexp.Compile(`\w+?(?:(-)\w|\w)+\w+[a-zA-Z]\.png`)
 	if err != nil {
 		return []string{}, err
 	}
