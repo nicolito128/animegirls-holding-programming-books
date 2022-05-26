@@ -1,6 +1,7 @@
 package animegirls_books
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -10,10 +11,16 @@ import (
 	"time"
 )
 
+var Languages = []string{"Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"}
+
 var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master/"
 
-func GetRandomImage(lang string) (string, error) {
-	lang = toTitleCase(lang)
+func GetRandomImage(l string) (string, error) {
+	lang, err := IsLanguage(l)
+	if err != nil {
+		return "", err
+	}
+
 	images, err := GetImages(lang)
 	if err != nil {
 		return "", err
@@ -27,8 +34,12 @@ func GetRandomImage(lang string) (string, error) {
 	return rbImage, nil
 }
 
-func GetImages(lang string) ([]string, error) {
-	lang = toTitleCase(lang)
+func GetImages(l string) ([]string, error) {
+	lang, err := IsLanguage(l)
+	if err != nil {
+		return []string{}, err
+	}
+
 	body, err := Request(lang)
 	if err != nil {
 		return []string{}, err
@@ -64,8 +75,12 @@ func GetImages(lang string) ([]string, error) {
 	return im, nil
 }
 
-func Request(lang string) ([]byte, error) {
-	lang = toTitleCase(lang)
+func Request(l string) ([]byte, error) {
+	lang, err := IsLanguage(l)
+	if err != nil {
+		return []byte{}, err
+	}
+
 	link := fmt.Sprintf("https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/tree/master/%s", lang)
 
 	res, err := http.Get(link)
@@ -81,9 +96,24 @@ func Request(lang string) ([]byte, error) {
 	return body, nil
 }
 
-func toTitleCase(str string) string {
-	title := strings.ToUpper(string(str[0])) + strings.ToLower(str[1:])
-	return title
+func IsLanguage(str string) (string, error) {
+	var ok bool
+	var l string
+	err := errors.New("Not a language")
+
+	for _, lang := range Languages {
+		if strings.ToLower(str) == strings.ToLower(lang) {
+			ok = true
+			l = lang
+			break
+		}
+	}
+
+	if !ok {
+		return "", err
+	}
+
+	return l, nil
 }
 
 func concatRawLink(lang string, im string) string {
