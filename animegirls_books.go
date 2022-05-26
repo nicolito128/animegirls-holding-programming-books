@@ -73,11 +73,16 @@ func GetImages(l string) ([]string, error) {
 	im := append(jpgIm, pngIm...)
 
 	// Making each item a raw link
-	for i, item := range im {
-		im[i] = concatRawLink(lang, item)
+	var imLinks []string
+	for _, item := range im {
+		if strings.HasPrefix(item, fmt.Sprintf("master/%s/", lang)) {
+			continue
+		}
+
+		imLinks = append(imLinks, concatRawLink(lang, item))
 	}
 
-	return im, nil
+	return imLinks, nil
 }
 
 // Request makes a request to the github repository and returns the response body.
