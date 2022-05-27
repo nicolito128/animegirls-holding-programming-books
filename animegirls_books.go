@@ -12,7 +12,7 @@ import (
 )
 
 // Languages available. List: "Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"
-var Languages = []string{"AI", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"}
+var Languages = []string{"AI", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL", "Visual Basic"}
 var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master"
 var folderLink = "https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/tree/master"
 
@@ -38,6 +38,7 @@ func GetRandomImage(l string) (string, error) {
 
 	rbIndex := rand.Intn(len(images))
 	rbImage := images[rbIndex]
+	rbImage = parseSymbols(rbImage)
 	return rbImage, nil
 }
 
@@ -87,6 +88,7 @@ func GetImages(l string) ([]string, error) {
 		}
 
 		im[i] = concatRawLink(lang, item)
+		im[i] = parseSymbols(im[i])
 	}
 
 	return im, nil
@@ -101,6 +103,8 @@ func Request(l string) ([]byte, error) {
 	}
 
 	link := fmt.Sprintf("%s/%s", folderLink, lang)
+	link = parseSymbols(link)
+	fmt.Println(link)
 
 	res, err := http.Get(link)
 	if err != nil {
@@ -134,6 +138,27 @@ func IsLanguage(str string) (string, error) {
 	}
 
 	return l, nil
+}
+
+func parseSymbols(str string) string {
+	var l string
+
+	if strings.Contains(str, " ") {
+		l = strings.ReplaceAll(str, " ", "%20")
+		return l
+	}
+
+	if strings.Contains(str, "#") {
+		l = strings.ReplaceAll(str, "#", "%23")
+		return l
+	}
+
+	if strings.Contains(str, "+") {
+		l = strings.Replace(str, "+", "%2B", 2)
+		return l
+	}
+
+	return str
 }
 
 func concatRawLink(lang string, im string) string {
