@@ -32,6 +32,10 @@ func GetRandomImage(l string) (string, error) {
 	// Initializing the random seed
 	rand.Seed(time.Now().UnixNano())
 
+	if len(images) == 0 {
+		return "", errors.New("No images found. Internal error.")
+	}
+
 	rbIndex := rand.Intn(len(images))
 	rbImage := images[rbIndex]
 	return rbImage, nil
@@ -84,7 +88,6 @@ func GetImages(l string) ([]string, error) {
 
 		im[i] = concatRawLink(lang, item)
 	}
-	fmt.Println(im)
 
 	return im, nil
 }
