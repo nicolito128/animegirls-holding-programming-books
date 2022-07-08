@@ -11,6 +11,9 @@ import (
 	"time"
 )
 
+var ver, _ = ioutil.ReadFile("./version")
+var VERSION = string(ver)
+
 // Languages available. List: "Al", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL"
 var Languages = []string{"AI", "APL", "ASM", "Ada", "Agda", "Algorithms", "Architecture", "Beef", "C#", "C++", "C", "CSS", "Cobol", "Compilers", "D", "Dart", "Delphi", "Design Patterns", "Editors", "Elixir", "Elm", "F#", "FORTH", "Fortran", "GDScript", "Go", "Haskell", "HoTT", "HolyC", "Idris", "Java", "Javascript", "Kotlin", "Lisp", "Lua", "Math", "Memes", "Mixed", "MongoDB", "Nim", "OCaml", "Objective-C", "Other", "PHP", "Perl", "Personification", "Prolog", "Python", "Quantum Computing", "R", "Racket", "RayTracing", "ReCT", "Regex", "Ruby", "Rust", "SICP", "SQL", "Scala", "Shell", "Smalltalk", "Solidity", "Swift", "Systems", "Typescript", "Uncategorized", "Unity", "Unreal", "V", "VHDL", "Verilog", "WebGL", "Visual Basic"}
 var rawLink = "https://raw.githubusercontent.com/cat-milk/Anime-Girls-Holding-Programming-Books/master"
