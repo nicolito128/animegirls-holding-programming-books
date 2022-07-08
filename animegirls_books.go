@@ -104,7 +104,6 @@ func Request(l string) ([]byte, error) {
 
 	link := fmt.Sprintf("%s/%s", folderLink, lang)
 	link = parseSymbols(link)
-	fmt.Println(link)
 
 	res, err := http.Get(link)
 	if err != nil {
@@ -141,24 +140,21 @@ func IsLanguage(str string) (string, error) {
 }
 
 func parseSymbols(str string) string {
-	var l string
+	var l string = str
 
 	if strings.Contains(str, " ") {
 		l = strings.ReplaceAll(str, " ", "%20")
-		return l
 	}
 
 	if strings.Contains(str, "#") {
 		l = strings.ReplaceAll(str, "#", "%23")
-		return l
 	}
 
 	if strings.Contains(str, "+") {
 		l = strings.Replace(str, "+", "%2B", 2)
-		return l
 	}
 
-	return str
+	return l
 }
 
 func concatRawLink(lang string, im string) string {
