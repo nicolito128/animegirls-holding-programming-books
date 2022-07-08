@@ -1,7 +1,5 @@
 # Anime Girls Holding Programming Books
-This module provides a simple functionality to obtain images of anime-girls holding well-known programming books. The module is based on the eponymous project [`cat-milk/Anime-Girls-Holding-Programming-Books`](https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books). All image rights and credits go to their respective authors, this repository is intended only to provide a simple functionality to use the images provided.
-
-The module does not handle, and does not plan to handle, +18 (adult content) images.
+This module provides a simple functionality to obtain images of anime-girls holding programming books. The module is based on the project [`cat-milk/Anime-Girls-Holding-Programming-Books`](https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books). All image rights go to their respective authors, this repository is intended only to provide a simple functionality to use the images provided.
 
 ## How to use
 Import the module:
